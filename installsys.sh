@@ -26,7 +26,7 @@ echo "Installing dependencies"
 
 echo 'Installation complete'
 
-./build_oai -c -w USRP -x
+./build_oai --UE --noS1 -c -w USRP -x
 
 cd $OPENAIRHOME
 source oaienv
