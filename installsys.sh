@@ -26,3 +26,17 @@ echo "Installing dependencies"
 
 echo 'Installation complete'
 
+./build_oai -c -w USRP -x
+
+cd $OPENAIRHOME
+source oaienv
+echo "sourced OAIENV"
+
+source ./targets/bin/init_nas_nos1 UE
+
+echo "nashmesh complete"
+
+cd $OPENAIRHOME/cmake_targets
+
+sudo -E ./lte_noS1_build_oai/build/lte-uesoftmodem-nos1  -U 1 -C 2660000000 -r 25 --ue-scan-carrier --ue-txgain 90 --ue-rxgain 115 -d >&1 | tee UE.log
+
