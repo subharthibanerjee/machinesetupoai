@@ -58,5 +58,7 @@ echo_success "`date`:nashmesh complete"
 cd $OPENAIRHOME/cmake_targets
 
 sudo /usr/lib/uhd/utils/uhd_images_downloader.py
-sudo -E ./lte_noS1_build_oai/build/lte-uesoftmodem-nos1  -U 1 -C 2660000000 -r 25 --ue-scan-carrier --ue-txgain 90 --ue-rxgain 115 -d >&1 | tee UE.log
+
+echo_info "downloaded installer"
+sudo -E ./lte_noS1_build_oai/build/lte-uesoftmodem-nos1 -C 2680000000 -r 25 --ue-scan-carrier --ue-txgain 90 --ue-rxgain 115 -d
 
