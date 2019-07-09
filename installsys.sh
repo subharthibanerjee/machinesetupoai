@@ -6,7 +6,17 @@ Red=$'\e[1;31m'
 Green=$'\e[1;32m'
 Blue=$'\e[1;34m'
 
-echo "$Red`date`: start installing USRP and libboost"
+function echo_info() {
+	echo -e "$Blue \b"$1
+}
+function echo_sucess() {
+	echo -e "$Green \b"$1
+}
+
+function echo_debug() {
+	echo -e "$Red \b"$1
+}
+echo_debug "`date`: start installing USRP and libboost"
 
 sudo apt-get -y install libboost-all-dev
 sudo add-apt-repository ppa:ettusresearch/uhd
@@ -14,34 +24,34 @@ sudo apt-get update
 sudo apt-get -y install libuhd-dev libuhd003 uhd-host
 
 
-echo -e "$Green \binstallation complete for USRP and libboost"
+echo_success "installation complete for USRP and libboost"
 
 mkdir -p ~/openairinterface5g
 
 OPENAIRHOME=~/openairinterface5g
 cd $HOME
-echo "$Green`date`:git cloning https://gitlab.eurecom.fr/oai/openairinterface5g"
+echo_info "`date`:git cloning https://gitlab.eurecom.fr/oai/openairinterface5g"
 git clone https://gitlab.eurecom.fr/oai/openairinterface5g
 
-echo "cloning complete"
+echo_success "cloning complete"
 
 cd $OPENAIRHOME/cmake_targets/
-echo -e "$Blue \bcurrent directory $PWD"
-echo "`date`: Installing dependencies"
+echo_info "current directory $PWD"
+echo_info "`date`: Installing dependencies"
 
 ./build_oai -I
 
-echo "$Green `date`:Installation complete"
+echo_success "`date`:Installation complete"
 
 ./build_oai --UE --noS1 -c -w USRP -x
 
 cd $OPENAIRHOME
 source oaienv
-echo "$Blue`date`:sourced OAIENV"
+echo_info "`date`:sourced OAIENV"
 
 source ./targets/bin/init_nas_nos1 UE
 
-echo "`date`:nashmesh complete"
+echo_success "`date`:nashmesh complete"
 
 
 
