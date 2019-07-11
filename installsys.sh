@@ -60,5 +60,5 @@ cd $OPENAIRHOME/cmake_targets
 sudo /usr/lib/uhd/utils/uhd_images_downloader.py
 
 echo_info "downloaded installer"
-sudo -E ./lte_noS1_build_oai/build/lte-uesoftmodem-nos1 -C 2680000000 -r 25 --ue-scan-carrier --ue-txgain 90 --ue-rxgain 115 -d
+sudo -E ./cmake_targets/lte_noS1_build_oai/build/lte-uesoftmodem-nos1 -d --phy-test -U 1 -C 750000000 -r 25 --ue-scan-carrier --ue-txgain 90 --ue-rxgain 115 --ue-max-power -5
 
