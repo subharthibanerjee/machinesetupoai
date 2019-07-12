@@ -1,6 +1,7 @@
 #!/bin/bash
 # The script will setup the sytem for OAI-UE
 
+dl_frequency=750000000 # band 13
 echo "Running script on `date`"
 Red=$'\e[1;31m'
 Green=$'\e[1;32m'
@@ -60,5 +61,10 @@ cd $OPENAIRHOME/cmake_targets
 sudo /usr/lib/uhd/utils/uhd_images_downloader.py
 
 echo_info "downloaded installer"
-sudo -E ./lte_noS1_build_oai/build/lte-uesoftmodem-nos1 -C 2680000000 -r 25 --ue-scan-carrier --ue-txgain 90 --ue-rxgain 115 -d
+
+
+if 
+sudo -E ./lte_noS1_build_oai/build/lte-uesoftmodem-nos1 -C $dl_frequency -r 25 \
+ --ue-scan-carrier --ue-txgain 90 --ue-rxgain 115 --ue-max-power -5 -d \
+ --phy-test
 
