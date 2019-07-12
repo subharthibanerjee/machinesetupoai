@@ -1,6 +1,31 @@
 #!/bin/bash
 #kernel
+
+echo "Running script on `date`"
+Red=$'\e[1;31m'
+Green=$'\e[1;32m'
+Blue=$'\e[1;34m'
+function echo_info() {
+	echo -e "$Blue [INFO] \b"$1
+}
+function echo_sucess() {
+	echo -e "$Green [SUCCESS] \b"$1
+}
+
+function echo_debug() {
+	echo -e "$Red [DEBUG] \b"$1
+}
+
+echo_info "Updating the system"
+
 apt-get -y update
+
+echo_info "Collecting general information regarding the system"
+if  [[ `lsb_release -rs` == "18.04" ]]
+	echo_info "Installing low latency kernel for 18.04"
+
+fi
+
 apt-get -y install linux-image-3.19.0-61-lowlatency linux-headers-3.19.0-61-lowlatency
 #necessary programs
 apt-get -y install subversion git i7z cpufrequtils
