@@ -139,5 +139,5 @@ then
 	fi
 fi
 echo_info "Process complete ..."
-echo_default
+echo
 exit 1

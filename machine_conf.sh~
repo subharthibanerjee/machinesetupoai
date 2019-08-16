@@ -66,7 +66,7 @@ echo
 read -p "Do you want to run with CSET shield? " choice
 case "$choice" in
 y|Y )   echo_debug "processing CSET request"
-	sudo cset shield ~/openairinterface5g/cmake_targets/lte_noS1_build_oai/build/lte-uesoftmodem-nos1;;
+	sudo cset shield ~/openairinterface5g/cmake_targets/lte_noS1_build_oai/build/lte-uesoftmodem-nos1 -C2660000000 -r25 --ue-scan-carrier 1 --ue-txgain 5 --ue-rxgain 125 --ue-max-power 0 --phy-test -d;;
 n|N ) 	echo_info "not setting CSET";;
 * ) 	echo_debug "Invalid option";;
 esac
