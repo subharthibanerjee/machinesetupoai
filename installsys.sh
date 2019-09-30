@@ -144,6 +144,8 @@ then
 
 	fi
 fi
+
+sudo -E ./lte_build_oai/build/lte-softmodem -O ~/openairinterface5g/ci-scripts/conf_files/my-enb.band7.tm1.25PRB.usrpb210.conf -d --nokrnmod 1 --noS1 --eNBs.[0].rrc_inactivity_threshold 0
 echo_info "Process complete ..."
 echo_default
 exit 1
