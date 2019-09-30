@@ -99,21 +99,36 @@ then
 		git clone https://gitlab.eurecom.fr/oai/openairinterface5g
 
 		echo_success "cloning complete"
+		cd $OPENAIRHOME
+		
+		git checkout master
 
+		git checout v1.1.0
+		echo_info "checked out version 1.1.0"
+
+		source oaienv
+		echo_info "`date`:sourced OAIENV"
+		
 		cd $OPENAIRHOME/cmake_targets/
 		echo_info "current directory $PWD"
+		
 		echo_info "`date`: Installing dependencies"
 
 		./build_oai -I
 
 		echo_success "`date`:Installation complete"
 
-		echo_info "Building with the scope for UE"
-		./build_oai --UE -C -w USRP --build-lib uescope  
+		while getopts 'abf:v' flag; do
+			case "${flag}" in 
+				UE) echo_info "Installing for UE" ;;
+					
+					echo_info "Building with the scope for UE" ;;
+					./build_oai --UE -C -w USRP --build-lib uescope ;;  
+				eNB) echo_info "Installing for eNB"
+					echo_info "Building with the scope for eNB" ;;
+					./build_oai --eNB -C -w USRP --build-lib enbscope ;; 
 
-		cd $OPENAIRHOME
-		source oaienv
-		echo_info "`date`:sourced OAIENV"
+		
 
 		#source ./targets/bin/init_nas_nos1 UE
 
@@ -145,7 +160,7 @@ then
 	fi
 fi
 
-sudo -E ./lte_build_oai/build/lte-softmodem -O ~/openairinterface5g/ci-scripts/conf_files/my-enb.band7.tm1.25PRB.usrpb210.conf -d --nokrnmod 1 --noS1 --eNBs.[0].rrc_inactivity_threshold 0
+
 echo_info "Process complete ..."
-echo_default
+
 exit 1
