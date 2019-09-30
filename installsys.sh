@@ -7,18 +7,21 @@ Red=$'\e[1;31m'
 Green=$'\e[1;32m'
 Blue=$'\e[1;34m'
 Default=$'\e[0m'
+function echo_default() {
+	echo -e "$Default \b"$1
+}
 function echo_info() {
 	echo -e "$Blue \b"$1
+	echo_default
 }
 function echo_sucess() {
 	echo -e "$Green \b"$1
+	echo_default
 }
 
 function echo_debug() {
 	echo -e "$Red \b"$1
-}
-function echo_default() {
-	echo -e "$Default \b"$1
+	echo_default
 }
 
 
@@ -77,8 +80,10 @@ then
 		source oaienv
 		echo_debug $PWD
 		./cmake_targets/build_oai -I       # install SW packages from internet
-		./cmake_targets/build_oai  -w USRP --eNB --UE --noS1 -x -c -C# compile eNB
+		./cmake_targets/build_oai  -w USRP --eNB -c # compile eNB
 	else
+
+		echo_info "This "
 		sudo apt-get -y install libboost-all-dev
 		sudo add-apt-repository ppa:ettusresearch/uhd
 		sudo apt-get update
@@ -103,23 +108,24 @@ then
 
 		echo_success "`date`:Installation complete"
 
-		./build_oai --UE --noS1 -c -w USRP -x
+		echo_info "Building with the scope for UE"
+		./build_oai --UE -C -w USRP --build-lib uescope  
 
 		cd $OPENAIRHOME
 		source oaienv
 		echo_info "`date`:sourced OAIENV"
 
-		source ./targets/bin/init_nas_nos1 UE
+		#source ./targets/bin/init_nas_nos1 UE
 
-		echo_success "`date`:nashmesh complete"
+		#echo_success "`date`:nashmesh complete"
 
 
 
 		cd $OPENAIRHOME/cmake_targets
 
-		sudo /usr/lib/uhd/utils/uhd_images_downloader.py
+		#sudo /usr/lib/uhd/utils/uhd_images_downloader.py
 
-		echo_info "downloaded installer"
+		#echo_info "downloaded installer"
 	fi
 
 
