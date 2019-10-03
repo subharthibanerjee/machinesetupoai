@@ -30,6 +30,8 @@ function echo_debug() {
 while getopts 'abf:v' flag; do
 			case "${flag}" in 
 
-				UE) echo_info "Running UE ---";;
+				UE) echo_info "Running UE ---"
+				sudo ./lte-uesoftmodem -d -S -q -C 2680000000 -r 25 --ue-rxgain 120 --ue-txgain 0 --ue-max-power 0 --ue-scan-carrier --nokrnmod 1 --noS1 --threadIQ 3
+;;
 
 				eNB) sudo -E ./lte_build_oai/build/lte-softmodem -O ~/openairinterface5g/ci-scripts/conf_files/my-enb.band7.tm1.25PRB.usrpb210.conf -d --nokrnmod 1 --noS1 --eNBs.[0].rrc_inactivity_threshold 0;;
